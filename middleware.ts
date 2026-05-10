@@ -7,12 +7,38 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  // Create response to modify cookies
-  let response = NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
-  })
+  // Clean up any duplicate cookies that could cause token duplication in headers
+  // This fixes the "Authorization header has invalid value" error
+  const cookies = request.cookies.getAll()
+  const accessTokenCookies = cookies.filter(c => c.name === 'sb-access-token')
+  
+  let response: NextResponse
+  
+  // If multiple access tokens exist (causing the "duplicate token" error), clean them up
+  if (accessTokenCookies.length > 1) {
+    // Get only the newest token (last one set)
+    const latestToken = accessTokenCookies[accessTokenCookies.length - 1]
+    response = NextResponse.next({ request: { headers: request.headers } })
+    
+    // Clear all access tokens and set only the latest
+    for (const cookie of accessTokenCookies) {
+      response.cookies.delete(cookie.name)
+    }
+    response.cookies.set(latestToken.name, latestToken.value, {
+      path: '/',
+      sameSite: 'lax',
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 3600,
+    })
+  } else {
+    // Create response normally
+    response = NextResponse.next({
+      request: {
+        headers: request.headers,
+      },
+    })
+  }
 
   // Create supabase client to check session
   const supabase = createServerClient(

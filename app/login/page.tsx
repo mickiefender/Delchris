@@ -17,12 +17,18 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const handleLogin = async (e: React.FormEvent) => {
+const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setError(null)
 
     try {
+      // First, sign out to clear any stale tokens that might cause duplication
+      await supabase.auth.signOut()
+
+      // Brief delay to ensure cookies are cleared
+      await new Promise(resolve => setTimeout(resolve, 100))
+
       // Sign in with email and password
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email,
