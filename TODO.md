@@ -1,22 +1,22 @@
-# Brand Color Update Plan
+# Scroll Animation Implementation TODO
 
-## Steps to Complete:
+## Phase 1: Create Animation Infrastructure
+- [x] 1. Create useScrollReveal hook with IntersectionObserver
+- [x] 2. Add animation CSS classes to globals.css
 
-- [x] 1. Update `tailwind.config.ts` - Set new brand colors (red, orange, yellow)
-- [x] 2. Update `app/globals.css` - Update CSS custom properties for new colors
-- [ ] 3. Verify changes in browser
+## Phase 2: Update Components
+- [ ] 3. Hero.tsx - Add enhanced fade-in animations
+- [ ] 4. About.tsx - Add staggered card animations
+- [ ] 5. Services.tsx - Add scroll reveal to service cards
+- [ ] 6. CTABanner.tsx - Enhance existing counter animation
+- [ ] 7. HowItWorks.tsx - Add step card stagger animations
+- [ ] 8. Team.tsx - Add section reveal animations
+- [ ] 9. Gallery.tsx - Add enhanced carousel transitions
+- [ ] 10. Testimonials.tsx - Add testimonial card stagger
+- [ ] 11. WhyChooseUs.tsx - Add reason cards stagger
+- [ ] 12. GetInvolved.tsx - Add opportunity cards stagger
+- [ ] 13. FAQ.tsx - Add accordion animations
+- [ ] 14. Contact.tsx - Add form reveal animation
 
-## Color Mapping:
-
-| Role | Old Color (Blue) | New Color (Red/Orange/Yellow) |
-|------|-----------------|-------------------------------|
-| Primary | #0066CC | #DC2626 (Red) |
-| Primary Dark | #004499 | #B91C1C (Dark Red) |
-| Primary Light | #3385DD | #EF4444 (Light Red) |
-| Accent | #4A90E2 | #F97316 (Orange) |
-| Secondary | #E8F0FF | #FEF3C7 (Light Yellow) |
-| Warning | #F59E0B | Keep (Yellow/Amber) |
-
-## Files Modified:
-1. tailwind.config.ts
-2. app/globals.css
+## Phase 3: Testing
+- [ ] 15. Test animations in browser

@@ -1,16 +1,59 @@
 'use client'
 
-import { Leaf, Fish, Wheat, Droplet } from 'lucide-react'
+import { Leaf, Fish, Wheat, Droplet, ShoppingCart } from 'lucide-react'
 import { useEffect, useRef } from 'react'
+import Link from 'next/link'
 
 export function Services() {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Animate header
+            const header = entry.target.querySelector('.services-header')
+            header?.classList.add('visible')
+            
+            // Animate service cards with stagger
+            const cards = entry.target.querySelectorAll('.service-card')
+            cards.forEach((card, index) => {
+              setTimeout(() => {
+                card.classList.add('visible')
+              }, index * 150)
+            })
+            
+            // Animate showcase
+            const showcase = entry.target.querySelector('.services-showcase')
+            setTimeout(() => {
+              showcase?.classList.add('visible')
+            }, 700)
+            
+            // Animate awards
+            const awards = entry.target.querySelector('.services-awards')
+            setTimeout(() => {
+              awards?.classList.add('visible')
+            }, 900)
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    const section = document.getElementById('services')
+    if (section) observer.observe(section)
+
+    return () => observer.disconnect()
+  }, [])
+
   const services = [
+    
     {
-      icon: Wheat,
-      title: 'Rice Processing',
-      description: 'State-of-the-art rice milling at 15 tons/hour capacity. Offering parboiled, precooked, and seasoned rice mixes with eco-friendly packaging.',
-      features: ['Parboiled Rice', 'Precooked Rice', 'Rice Mixes', 'International Standards'],
-      location: 'Hohoe',
+      icon: ShoppingCart,
+      title: 'E-commerce App',
+      description: 'Delx E-commerce App: Seamless online shopping for premium agribusiness products. User-friendly interface, secure payments, and real-time order tracking.',
+      features: ['User-Friendly Interface', 'Secure Payments', 'Real-Time Tracking', 'Wide Product Range'],
+      link: 'https://delx.shop/',
+   
     },
     {
       icon: Leaf,
@@ -18,20 +61,23 @@ export function Services() {
       description: 'Premium "Made-in-Ghana" processed mushrooms and seafood with authentic African spices. 500kg/hour processing capacity.',
       features: ['Dried Mushrooms', 'Canned Mushrooms', 'Shellfish Processing', 'Export Quality'],
       location: 'Adenta',
+      link: '#mushroom-seafood',
     },
     {
       icon: Droplet,
-      title: 'Cassava Products',
-      description: 'Value-added cassava processing including Gari, cassava flour, starch, and premium snacks. Supporting nutrition and food security.',
-      features: ['Cassava Flour', 'Gari Processing', 'Cassava Shortbread', 'Cassava Starch'],
-      location: 'Hohoe',
+      title: 'Delchris clams in olive oil',
+      description: 'Delchris Clams in Olive Oil: Premium clams processed with authentic African spices, packed in high-quality olive oil. 500kg/hour processing capacity.',
+      features: ['Clams in Olive Oil', 'Authentic African Spices', '500kg/hour Capacity', 'Export Quality'],
+      location: 'Adenta',
+      link: 'https://delx.shop/products/declhris-clams-in-olive-oil',
     },
     {
       icon: Fish,
-      title: 'Specialized Food Products',
-      description: 'Innovative cereal bars, corn flour, and health-focused snacks made from locally sourced ingredients.',
-      features: ['Cereal Bars', 'Corn Flour', 'Health Snacks', 'Natural Ingredients'],
+      title: 'Delx Crab in olive oil',
+      description: 'Delx Crab in Olive Oil: Premium crab processed with authentic African spices, packed in high-quality olive oil. 500kg/hour processing capacity.',
+      features: ['Crab in Olive Oil', 'Authentic African Spices', '500kg/hour Capacity', 'Export Quality'],
       location: 'Multiple Centers',
+      link: 'https://delx.shop/products/delx-crab-in-olive-oil',
     },
   ]
 
@@ -40,13 +86,13 @@ export function Services() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
-          <p className="text-primary font-semibold text-sm md:text-base tracking-wide uppercase">
+          <p className="services-header scroll-reveal text-primary font-semibold text-sm md:text-base tracking-wide uppercase">
             Our Services
           </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+          <h2 className="services-header scroll-reveal text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
             Processing Excellence
           </h2>
-          <p className="text-lg text-foreground/60 max-w-2xl mx-auto">
+          <p className="services-header scroll-reveal text-lg text-foreground/60 max-w-2xl mx-auto">
             Multiple processing centers equipped with modern technology delivering premium quality products for domestic and export markets.
           </p>
         </div>
@@ -56,15 +102,16 @@ export function Services() {
           {services.map((service, index) => {
             const Icon = service.icon
             const images = [
-              '/Rice_milling_15_tons_hour_202605090121.jpeg',
-              '/Mashroom_processing.jpeg',
-              '/products-showcase.jpg',
-              '/products-showcase.jpg',
-            ]
+              '/ecommerce_app.png',
+              '/mushroom.jpg',
+              '/clams olive oil.jpg',
+              '/crab.png',
+]
             return (
-              <div
+              <Link
+                href={service.link}
                 key={index}
-                className="group bg-card rounded-xl overflow-hidden border border-border hover:border-primary/30 hover:shadow-xl transition-all duration-300"
+                className="service-card scroll-reveal group bg-card rounded-xl overflow-hidden border border-border hover:border-primary/30 hover:shadow-xl transition-all duration-300 block card-hover-lift"
               >
                 {/* Image Section */}
                 <div className="relative h-64 overflow-hidden bg-gray-200">
@@ -110,13 +157,13 @@ export function Services() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             )
           })}
         </div>
 
         {/* Products Showcase */}
-        <div className="mb-16 rounded-xl overflow-hidden shadow-lg h-96">
+        <div className="services-showcase scroll-reveal mb-16 rounded-xl overflow-hidden shadow-lg h-96">
           <img
             src="/kube toffee.png"
             alt="Premium Delchris food products - packaged rice, canned mushrooms, and cassava products"

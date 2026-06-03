@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram, MessageCircle } from 'lucide-react'
 
 export function Contact() {
@@ -15,6 +15,26 @@ export function Contact() {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.contact-animate').forEach((el, i) => {
+              setTimeout(() => el.classList.add('visible'), i * 100)
+            })
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    const section = document.getElementById('contact')
+    if (section) observer.observe(section)
+
+    return () => observer.disconnect()
+  }, [])
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -51,24 +71,24 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 md:py-32 bg-card">
+<section id="contact" className="py-20 md:py-32 bg-card">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
-          <p className="text-primary font-semibold text-sm md:text-base tracking-wide uppercase">
+          <p className="contact-animate scroll-reveal text-primary font-semibold text-sm md:text-base tracking-wide uppercase">
             Get In Touch
           </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+          <h2 className="contact-animate scroll-reveal text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
             Contact Us
           </h2>
-          <p className="text-lg text-foreground/60 max-w-2xl mx-auto">
+          <p className="contact-animate scroll-reveal text-lg text-foreground/60 max-w-2xl mx-auto">
             Have questions? We'd love to hear from you. Reach out to us through any of these channels.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 mb-16">
+<div className="grid md:grid-cols-2 gap-12 mb-16">
           {/* Contact Information */}
-          <div className="space-y-8">
+          <div className="contact-animate scroll-reveal space-y-8">
             <div>
               <h3 className="text-2xl font-bold text-foreground mb-6">Contact Information</h3>
               <div className="space-y-4">
@@ -174,8 +194,8 @@ export function Contact() {
             </div>
           </div>
 
-          {/* Contact Form */}
-          <div className="bg-white rounded-xl p-8 border border-border">
+{/* Contact Form */}
+          <div className="contact-animate scroll-reveal bg-white rounded-xl p-8 border border-border">
             {submitted ? (
               <div className="flex items-center justify-center min-h-96">
                 <div className="text-center">

@@ -19,8 +19,18 @@ export function CTABanner() {
         if (entry.isIntersecting && !hasStarted) {
           setHasStarted(true)
         }
+        
+        // Animate content
+        if (entry.isIntersecting) {
+          const content = entry.target.querySelector('.cta-content')
+          const stats = entry.target.querySelector('.cta-stats')
+          content?.classList.add('visible')
+          setTimeout(() => {
+            stats?.classList.add('visible')
+          }, 300)
+        }
       },
-      { threshold: 0.5 }
+      { threshold: 0.3 }
     )
 
     if (sectionRef.current) {
@@ -69,11 +79,11 @@ export function CTABanner() {
     return () => clearInterval(interval)
   }, [hasStarted])
 
-  return (
+return (
     <section ref={sectionRef} className="bg-gradient-to-r from-primary to-primary/80 py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div className="text-white">
+          <div className="cta-content scroll-reveal text-white">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Ready to Transform Your Business?
             </h2>
@@ -83,14 +93,14 @@ export function CTABanner() {
             <div className="flex flex-col sm:flex-row gap-4">
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 bg-white text-primary px-8 py-3 rounded-lg hover:bg-white/90 transition-colors font-semibold group"
+                className="inline-flex items-center justify-center gap-2 bg-white text-primary px-8 py-3 rounded-lg hover:bg-white/90 transition-colors font-semibold group hover:scale-105"
               >
                 Get In Touch
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </a>
               <a
                 href="#services"
-                className="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white/10 transition-colors font-semibold"
+                className="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white/10 transition-colors font-semibold hover:scale-105"
               >
                 Explore Services
               </a>
@@ -98,20 +108,20 @@ export function CTABanner() {
           </div>
 
           <div className="hidden md:block">
-            <div className="space-y-4">
-              <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm border border-white/20">
+            <div className="cta-stats scroll-reveal space-y-4">
+              <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors">
                 <p className="text-white/80 text-sm font-medium">Processing Centers</p>
                 <p className="text-3xl font-bold text-white">{counts.centers}</p>
               </div>
-              <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm border border-white/20">
+              <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors">
                 <p className="text-white/80 text-sm font-medium">Product Lines</p>
                 <p className="text-3xl font-bold text-white">{counts.lines}+</p>
               </div>
-              <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm border border-white/20">
+              <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors">
                 <p className="text-white/80 text-sm font-medium">Lives Impacted</p>
                 <p className="text-3xl font-bold text-white">{counts.lives}+</p>
               </div>
-              <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm border border-white/20">
+              <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors">
                 <p className="text-white/80 text-sm font-medium">Women Empowered</p>
                 <p className="text-3xl font-bold text-white">{counts.women}+</p>
               </div>

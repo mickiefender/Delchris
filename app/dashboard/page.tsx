@@ -233,7 +233,7 @@ export default function DashboardOverview() {
               <Plus className="w-5 h-5" />
               Quick Actions
             </CardTitle>
-            <CardDescription>Common administrative tasks</CardDescription>
+            <CardDescription>Common administrative  tasks</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             <Link href="/dashboard/contacts" className="block">

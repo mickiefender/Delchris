@@ -1,11 +1,42 @@
 'use client'
 
 import { CheckCircle, Users, Sprout, Zap, ChevronLeft, ChevronRight } from 'lucide-react'
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 
 export function HowItWorks() {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const header = entry.target.querySelector('.hiw-header')
+            header?.classList.add('visible')
+            
+            const steps = entry.target.querySelectorAll('.hiw-step')
+            steps.forEach((step, index) => {
+              setTimeout(() => {
+                step.classList.add('visible')
+              }, index * 100)
+            })
+            
+            const model = entry.target.querySelector('.hiw-model')
+            const advantages = entry.target.querySelector('.hiw-advantages')
+            setTimeout(() => model?.classList.add('visible'), 900)
+            setTimeout(() => advantages?.classList.add('visible'), 1200)
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    const section = document.getElementById('how-it-works')
+    if (section) observer.observe(section)
+
+    return () => observer.disconnect()
+  }, [])
+
   const steps = [
-    {
+{
       number: '1',
       title: 'Identification of suitable candidate',
       description: 'Single mothers, school dropouts, and vulnerable women/youth identified and recruited from local communities.',
@@ -13,8 +44,8 @@ export function HowItWorks() {
     },
     {
       number: '2',
-      title: 'Indiovidual Needs Assessment',
-      description: 'Comprehensive evaluation of each candidate’s skills, interests, and circumstances to tailor training and support.',
+      title: 'Individual Needs Assessment',
+      description: "Comprehensive evaluation of each candidate's skills, interests, and circumstances to tailor training and support.",
       icon: CheckCircle,
     },
     {
@@ -76,13 +107,13 @@ export function HowItWorks() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
-          <p className="text-primary font-semibold text-sm md:text-base tracking-wide uppercase">
+          <p className="hiw-header scroll-reveal text-primary font-semibold text-sm md:text-base tracking-wide uppercase">
             The Delchris Model
           </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+          <h2 className="hiw-header scroll-reveal text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
             How It Works
           </h2>
-          <p className="text-lg text-foreground/60 max-w-2xl mx-auto">
+          <p className="hiw-header scroll-reveal text-lg text-foreground/60 max-w-2xl mx-auto">
             A comprehensive approach to economic empowerment combining commercial success with meaningful community impact.
           </p>
         </div>
@@ -117,8 +148,8 @@ export function HowItWorks() {
               {steps.map((step, index) => {
                 const Icon = step.icon
                 return (
-                  <div key={index} className="flex-shrink-0 w-80">
-                    <div className="bg-white rounded-xl p-6 border border-border h-full hover:border-primary/30 hover:shadow-lg transition-all duration-300">
+                  <div key={index} className="hiw-step scroll-reveal flex-shrink-0 w-80">
+                    <div className="bg-white rounded-xl p-6 border border-border h-full hover:border-primary/30 hover:shadow-lg transition-all duration-300 card-hover-lift">
                       <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center font-bold text-lg mb-4">
                         {step.number}
                       </div>
@@ -136,7 +167,7 @@ export function HowItWorks() {
         </div>
 
         {/* Foundation Model */}
-        <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+        <div className="hiw-model scroll-reveal grid md:grid-cols-2 gap-12 items-center mb-16">
           <div className="relative h-96 rounded-xl overflow-hidden shadow-lg md:order-2">
             <img
               src="/Flyer_for_Delchris_Africa_202605101506.jpeg"
@@ -191,7 +222,7 @@ export function HowItWorks() {
         </div>
 
         {/* Model Advantages */}
-        <div className="bg-gradient-to-r from-primary to-primary/80 rounded-xl p-12 text-white">
+        <div className="hiw-advantages scroll-reveal bg-gradient-to-r from-primary to-primary/80 rounded-xl p-12 text-white">
           <h3 className="text-2xl font-bold mb-8">Why the Delchris Model Works</h3>
           <div className="grid md:grid-cols-2 gap-8">
             {[

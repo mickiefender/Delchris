@@ -1,8 +1,49 @@
 'use client'
 
 import { Heart, Target, Zap } from 'lucide-react'
+import { useEffect } from 'react'
 
 export function About() {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Animate section header
+            const header = entry.target.querySelector('.about-header')
+            header?.classList.add('visible')
+            
+            // Animate cards with stagger
+            const cards = entry.target.querySelectorAll('.about-card')
+            cards.forEach((card, index) => {
+              setTimeout(() => {
+                card.classList.add('visible')
+              }, index * 150)
+            })
+            
+            // Animate values section
+            const valuesSection = entry.target.querySelector('.about-values')
+            setTimeout(() => {
+              valuesSection?.classList.add('visible')
+            }, 600)
+            
+            // Animate goals section
+            const goalsSection = entry.target.querySelector('.about-goals')
+            setTimeout(() => {
+              goalsSection?.classList.add('visible')
+            }, 900)
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    const section = document.getElementById('about')
+    if (section) observer.observe(section)
+
+    return () => observer.disconnect()
+  }, [])
+
   const values = [
     {
       icon: Zap,
@@ -26,13 +67,13 @@ export function About() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
-          <p className="text-primary font-semibold text-sm md:text-base tracking-wide uppercase">
+          <p className="about-header scroll-reveal text-primary font-semibold text-sm md:text-base tracking-wide uppercase">
             About Us
           </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+          <h2 className="about-header scroll-reveal text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
             Who We Are
           </h2>
-          <p className="text-lg text-foreground/60 max-w-2xl mx-auto">
+          <p className="about-header scroll-reveal text-lg text-foreground/60 max-w-2xl mx-auto">
             Delchris Africa Limited is a woman-owned and women-led social enterprise combining commercial excellence with community impact.
           </p>
         </div>
@@ -40,7 +81,7 @@ export function About() {
         {/* Mission, Vision, Values Grid */}
         <div className="grid md:grid-cols-3 gap-8 mb-16">
           {/* Mission */}
-          <div className="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
+          <div className="about-card scroll-reveal bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow card-hover-lift">
             <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
               <Target className="text-primary" size={24} />
             </div>
@@ -51,7 +92,7 @@ export function About() {
           </div>
 
           {/* Vision */}
-          <div className="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
+          <div className="about-card scroll-reveal bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow card-hover-lift">
             <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
               <Zap className="text-primary" size={24} />
             </div>
@@ -62,7 +103,7 @@ export function About() {
           </div>
 
           {/* Values */}
-          <div className="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
+          <div className="about-card scroll-reveal bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow card-hover-lift">
             <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
               <Heart className="text-primary" size={24} />
             </div>
@@ -73,14 +114,14 @@ export function About() {
           </div>
         </div>
 
-        {/* Core Values Details */}
-        <div className="bg-white rounded-xl p-12 mb-16">
+{/* Core Values Details */}
+        <div className="about-values scroll-reveal visible bg-white rounded-xl p-12 mb-16">
           <h3 className="text-2xl font-bold text-foreground mb-8">Core Values</h3>
           <div className="grid md:grid-cols-2 gap-8">
-            {values.map((value, index) => {
+{values.map((value, index) => {
               const Icon = value.icon
               return (
-                <div key={index} className="flex gap-4">
+                <div key={index} className="flex gap-4 stagger-item visible">
                   <div className="flex-shrink-0">
                     <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10">
                       <Icon className="text-primary" size={24} />
@@ -93,7 +134,7 @@ export function About() {
                 </div>
               )
             })}
-            <div className="flex gap-4">
+            <div className="flex gap-4 stagger-item visible">
               <div className="flex-shrink-0">
                 <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10">
                   <Target className="text-primary" size={24} />
@@ -104,7 +145,7 @@ export function About() {
                 <p className="text-foreground/60">Empowering local farmers and communities through resources, training, and economic opportunities.</p>
               </div>
             </div>
-            <div className="flex gap-4">
+            <div className="flex gap-4 stagger-item visible">
               <div className="flex-shrink-0">
                 <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10">
                   <Heart className="text-primary" size={24} />
@@ -118,10 +159,10 @@ export function About() {
           </div>
         </div>
 
-        {/* Strategic Goals */}
-        <div className="bg-primary/5 rounded-xl p-12">
+{/* Strategic Goals */}
+        <div className="about-goals scroll-reveal visible bg-primary/5 rounded-xl p-12">
           <h3 className="text-2xl font-bold text-foreground mb-8">Strategic Goals</h3>
-          <div className="space-y-4">
+<div className="space-y-4">
             {[
               'Lead the manufacturing of healthy, convenient foods',
               'Establish strong presence in agroprocessing with emphasis on quality and sustainability',
@@ -129,7 +170,7 @@ export function About() {
               'Support local farmers with resources, training, and technical assistance',
               'Create significant employment opportunities in processing and farming communities',
             ].map((goal, index) => (
-              <div key={index} className="flex gap-3 items-start">
+              <div key={index} className="flex gap-3 items-start stagger-item visible">
                 <span className="text-primary font-bold text-lg flex-shrink-0">•</span>
                 <p className="text-foreground/70">{goal}</p>
               </div>

@@ -1,10 +1,30 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ChevronDown } from 'lucide-react'
 
 export function FAQ() {
   const [openItems, setOpenItems] = useState<number[]>([])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.faq-animate').forEach((el, i) => {
+              setTimeout(() => el.classList.add('visible'), i * 80)
+            })
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    const section = document.getElementById('faq')
+    if (section) observer.observe(section)
+
+    return () => observer.disconnect()
+  }, [])
 
   const faqs = [
     {
@@ -48,27 +68,27 @@ export function FAQ() {
   }
 
   return (
-    <section id="faq" className="py-20 md:py-32 bg-white">
+<section id="faq" className="py-20 md:py-32 bg-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
-          <p className="text-primary font-semibold text-sm md:text-base tracking-wide uppercase">
+          <p className="faq-animate scroll-reveal text-primary font-semibold text-sm md:text-base tracking-wide uppercase">
             FAQ
           </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+          <h2 className="faq-animate scroll-reveal text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
             Frequently Asked Questions
           </h2>
-          <p className="text-lg text-foreground/60 max-w-2xl mx-auto">
+          <p className="faq-animate scroll-reveal text-lg text-foreground/60 max-w-2xl mx-auto">
             Find answers to common questions about our products, services, and mission.
           </p>
         </div>
 
-        {/* FAQ Items */}
+{/* FAQ Items */}
         <div className="space-y-3">
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="border border-border rounded-lg overflow-hidden hover:border-primary/30 transition-colors"
+              className="faq-animate scroll-reveal border border-border rounded-lg overflow-hidden hover:border-primary/30 transition-colors"
             >
               <button
                 onClick={() => toggleItem(index)}

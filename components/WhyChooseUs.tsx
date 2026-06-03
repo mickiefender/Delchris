@@ -1,8 +1,29 @@
 'use client'
 
 import { Award, Leaf, Users, Zap, TrendingUp, Shield } from 'lucide-react'
+import { useEffect } from 'react'
 
 export function WhyChooseUs() {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.wcu-animate').forEach((el, i) => {
+              setTimeout(() => el.classList.add('visible'), i * 100)
+            })
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    const section = document.querySelector('.why-choose-us-section')
+    if (section) observer.observe(section)
+
+    return () => observer.disconnect()
+  }, [])
+
   const reasons = [
     {
       icon: Award,
@@ -36,18 +57,18 @@ export function WhyChooseUs() {
     },
   ]
 
-  return (
-    <section className="py-20 md:py-32 bg-card">
+return (
+    <section className="why-choose-us-section py-20 md:py-32 bg-card">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
-          <p className="text-primary font-semibold text-sm md:text-base tracking-wide uppercase">
+          <p className="wcu-animate scroll-reveal text-primary font-semibold text-sm md:text-base tracking-wide uppercase">
             Why Partner With Us
           </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+          <h2 className="wcu-animate scroll-reveal text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
             Why Choose Delchris Africa
           </h2>
-          <p className="text-lg text-foreground/60 max-w-2xl mx-auto">
+          <p className="wcu-animate scroll-reveal text-lg text-foreground/60 max-w-2xl mx-auto">
             Multiple competitive advantages that set us apart in the agribusiness industry.
           </p>
         </div>

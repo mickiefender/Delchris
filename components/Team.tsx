@@ -1,24 +1,46 @@
 'use client'
 
+import { useEffect } from 'react'
+
 export function Team() {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.team-animate').forEach((el, i) => {
+              setTimeout(() => el.classList.add('visible'), i * 150)
+            })
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    const section = document.getElementById('team')
+    if (section) observer.observe(section)
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <section id="team" className="py-20 md:py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
-          <p className="text-primary font-semibold text-sm md:text-base tracking-wide uppercase">
+          <p className="team-animate scroll-reveal text-primary font-semibold text-sm md:text-base tracking-wide uppercase">
             Our Team
           </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+          <h2 className="team-animate scroll-reveal text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
             Leadership & Expertise
           </h2>
-          <p className="text-lg text-foreground/60 max-w-2xl mx-auto">
+          <p className="team-animate scroll-reveal text-lg text-foreground/60 max-w-2xl mx-auto">
             Dedicated professionals with strong academic backgrounds and hands-on experience across the agricultural value chain.
           </p>
         </div>
 
-       {/* CEO Section */}
-        <div className="mb-16 bg-card rounded-xl p-8 md:p-12 border border-border overflow-hidden">
+{/* CEO Section */}
+        <div className="team-animate scroll-reveal mb-16 bg-card rounded-xl p-8 md:p-12 border border-border overflow-hidden">
           <div className="grid md:grid-cols-3 gap-8 items-start">
             <div className="md:col-span-1">
               <div className="w-full aspect-square bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl overflow-hidden mb-6 shadow-lg">
@@ -76,8 +98,8 @@ export function Team() {
           </div>
         </div>
 
-        {/* Team Structure */}
-        <div className="mb-16">
+{/* Team Structure */}
+        <div className="team-animate scroll-reveal mb-16">
           <h3 className="text-2xl font-bold text-foreground mb-8">Our Multidisciplinary Team</h3>
           <div className="grid md:grid-cols-2 gap-6">
             {[
@@ -133,8 +155,8 @@ export function Team() {
           </div>
         </div>
 
-        {/* Team Values */}
-        <div className="bg-gradient-to-r from-primary/5 to-transparent rounded-xl p-12 border border-primary/20">
+{/* Team Values */}
+        <div className="team-animate scroll-reveal bg-gradient-to-r from-primary/5 to-transparent rounded-xl p-12 border border-primary/20">
           <h3 className="text-2xl font-bold text-foreground mb-8">What Unites Our Team</h3>
           <div className="grid md:grid-cols-3 gap-8">
             <div>

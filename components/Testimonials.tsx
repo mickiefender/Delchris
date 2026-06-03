@@ -1,8 +1,35 @@
 'use client'
 
 import { Star } from 'lucide-react'
+import { useEffect } from 'react'
 
 export function Testimonials() {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const header = entry.target.querySelector('.testimonials-header')
+            header?.classList.add('visible')
+            
+            const cards = entry.target.querySelectorAll('.testimonial-card')
+            cards.forEach((card, index) => {
+              setTimeout(() => {
+                card.classList.add('visible')
+              }, index * 150)
+            })
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    const section = document.querySelector('.testimonials-section')
+    if (section) observer.observe(section)
+
+    return () => observer.disconnect()
+  }, [])
+
   const testimonials = [
     {
       name: 'Ama Mensah',
@@ -30,18 +57,18 @@ export function Testimonials() {
     },
   ]
 
-  return (
-    <section className="py-20 md:py-32 bg-white">
+return (
+    <section className="testimonials-section py-20 md:py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
-          <p className="text-primary font-semibold text-sm md:text-base tracking-wide uppercase">
+          <p className="testimonials-header scroll-reveal text-primary font-semibold text-sm md:text-base tracking-wide uppercase">
             Impact Stories
           </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+          <h2 className="testimonials-header scroll-reveal text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
             Hear From Our Community
           </h2>
-          <p className="text-lg text-foreground/60 max-w-2xl mx-auto">
+          <p className="testimonials-header scroll-reveal text-lg text-foreground/60 max-w-2xl mx-auto">
             Real stories of transformation and success from farmers, businesses, and beneficiaries of our programs.
           </p>
         </div>
@@ -51,7 +78,7 @@ export function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-card rounded-xl p-8 border border-border hover:border-primary/30 hover:shadow-lg transition-all duration-300"
+              className="testimonial-card scroll-reveal bg-card rounded-xl p-8 border border-border hover:border-primary/30 hover:shadow-lg transition-all duration-300 card-hover-lift"
             >
               {/* Stars */}
               <div className="flex gap-1 mb-4">
