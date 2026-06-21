@@ -1,4 +1,6 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
@@ -76,7 +78,9 @@
 }
 
 @theme inline {
+
   --font-sans: 'Fredoka', 'Trebuchet MS', 'Arial', sans-serif;
+
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
   --color-background: var(--background);
   --color-foreground: var(--foreground);

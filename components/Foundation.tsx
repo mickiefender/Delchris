@@ -216,7 +216,7 @@ export function Foundation() {
 
           {/* Content */}
           <div>
-            <p className="text-[#0898a2] font-semibold text-sm tracking-wider uppercase">Welcome To Charity</p>
+            <p className="text-[#0898a2] font-semibold text-sm tracking-wider uppercase">Welcome To Africa Foundation</p>
             <h2 className="text-4xl md:text-5xl font-extrabold leading-tight mt-3">
               You're the Hope of Others.
             </h2>

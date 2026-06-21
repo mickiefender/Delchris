@@ -1,13 +1,13 @@
 'use client'
 
 import Image from 'next/image'
-import { Heart } from 'lucide-react'
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
 
   const footerLinks = {
     Company: [
+
       { label: 'About Us', href: '/about' },
       { label: 'Services', href: '/services' },
       { label: 'Team', href: '/team' },
@@ -24,11 +24,12 @@ export function Footer() {
       { label: 'Contact', href: '/contact' },
       { label: 'Careers', href: '/get-involved' },
       { label: 'Gallery', href: '/gallery' },
+
     ],
   }
 
   return (
-    <footer className="bg-[#0898a2] text-white">
+    <footer className="bg-black text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
         <div className="py-16 grid md:grid-cols-5 gap-8 mb-12 border-b border-white/10">

@@ -111,7 +111,9 @@ export function HowItWorks() {
             The Delchris Model
           </p>
           <h2 className="hiw-header scroll-reveal text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+
             Our Model for Economic Empowerment
+
           </h2>
           <p className="hiw-header scroll-reveal text-lg text-foreground/60 max-w-2xl mx-auto">
             A comprehensive approach to economic empowerment combining commercial success with meaningful community impact.

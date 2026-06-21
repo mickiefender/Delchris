@@ -45,8 +45,10 @@ import {
   Bell,
   Search,
   ChevronDown,
+
   BookOpen,
   Calendar,
+
   Loader2
 } from 'lucide-react'
 
@@ -57,10 +59,12 @@ const navItems = [
   { href: '/dashboard/internships', label: 'Internship Applications', icon: Briefcase },
   { href: '/dashboard/partnerships', label: 'Partnership Requests', icon: Users },
   { href: '/dashboard/volunteering', label: 'Volunteering', icon: Heart },
+
   { href: '/dashboard/gallery', label: 'Gallery', icon: ImageIcon },
   // Foundation content management
   { href: '/dashboard/foundation-blogs', label: 'Foundation Blogs', icon: BookOpen },
   { href: '/dashboard/foundation-events', label: 'Foundation Events', icon: Calendar }
+
 ]
 
 export default function DashboardLayout({

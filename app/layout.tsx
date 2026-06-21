@@ -5,7 +5,8 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Delchris Africa Limited - Premium Agribusiness Solutions',
-  description: 'Woman-owned agribusiness specializing in rice, mushroom, seafood, and cassava processing. Committed to sustainability, quality, and community empowerment in Ghana.',
+  description:
+    'Woman-owned agribusiness specializing in rice, mushroom, seafood, and cassava processing. Committed to sustainability, quality, and community empowerment in Ghana.',
   generator: 'v0.app',
   icons: {
     icon: [

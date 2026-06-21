@@ -35,6 +35,7 @@ export function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+
   // Close mobile menu on escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -42,6 +43,7 @@ export function Navigation() {
     }
     if (isOpen) {
       document.addEventListener('keydown', handleEscape)
+
       document.body.style.overflow = 'hidden'
     }
     return () => {
@@ -52,6 +54,7 @@ export function Navigation() {
 
   const handleLinkClick = () => {
     setIsOpen(false)
+
     setActiveDropdown(null)
   }
 
@@ -263,5 +266,6 @@ export function Navigation() {
         </AnimatePresence>
       </header>
     </>
+
   )
 }

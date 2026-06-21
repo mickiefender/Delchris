@@ -1,3 +1,4 @@
+
 import Link from 'next/link'
 import { Navigation } from '@/components/Navigation'
 import { Hero } from '@/components/Hero'
@@ -52,6 +53,7 @@ export default function Home() {
     <main className="overflow-hidden">
       <Navigation />
       <Hero />
+
 
       {/* Video Section */}
       <section className="py-16 md:py-24 bg-white">
@@ -182,6 +184,7 @@ export default function Home() {
       </section>
 
       <CTABanner />
+
       <Footer />
     </main>
   )

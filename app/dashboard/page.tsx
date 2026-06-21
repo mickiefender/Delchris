@@ -16,8 +16,7 @@ import {
   ArrowRight,
   Plus,
   Eye,
-  BookOpen,
-  Calendar,
+
   Loader2
 } from 'lucide-react'
 
@@ -27,8 +26,7 @@ interface DashboardStats {
   partnerships: number
   volunteering: number
   gallery: number
-  foundationBlogs: number
-  foundationEvents: number
+
 }
 
 interface RecentItem {
@@ -44,9 +42,11 @@ export default function DashboardOverview() {
     internships: 0,
     partnerships: 0,
     volunteering: 0,
+
     gallery: 0,
     foundationBlogs: 0,
     foundationEvents: 0
+
   })
   const [recentItems, setRecentItems] = useState<RecentItem[]>([])
   const [loading, setLoading] = useState(true)
@@ -54,14 +54,18 @@ export default function DashboardOverview() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+
         const [contactsRes, internRes, partnersRes, volunteerRes, galleryRes, blogsRes, eventsRes] = await Promise.all([
+
           fetch('/api/contacts'),
           fetch('/api/internships'),
           fetch('/api/partnerships'),
           fetch('/api/volunteering'),
+
           fetch('/api/gallery'),
           fetch('/api/foundation-blogs'),
           fetch('/api/foundation-events')
+
         ])
 
         const contactData = await contactsRes.json()
@@ -69,16 +73,20 @@ export default function DashboardOverview() {
         const partnersData = await partnersRes.json()
         const volunteerData = await volunteerRes.json()
         const galleryData = await galleryRes.json()
+
         const blogsData = await blogsRes.json()
         const eventsData = await eventsRes.json()
+
 
         const contacts = contactData.data || []
         const internships = internData.data || []
         const partnerships = partnersData.data || []
         const volunteering = volunteerData.data || []
         const gallery = galleryData.data || []
+
         const foundationBlogs = blogsData.data || []
         const foundationEvents = eventsData.data || []
+
 
         // Get recent items (last 5 from each category)
         const allRecent: RecentItem[] = [
@@ -95,9 +103,11 @@ export default function DashboardOverview() {
           internships: internships.length,
           partnerships: partnerships.length,
           volunteering: volunteering.length,
+
           gallery: gallery.length,
           foundationBlogs: foundationBlogs.length,
           foundationEvents: foundationEvents.length
+
         })
         setRecentItems(allRecent)
       } catch (error) {

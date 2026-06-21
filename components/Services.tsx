@@ -171,11 +171,14 @@ export function Services() {
           />
         </div>
 
+
         <AwardsRecognitionSection />
+
       </div>
     </section>
   )
 }
+
 
 export function AwardsRecognitionSection() {
   return (
@@ -201,6 +204,7 @@ export function AwardsRecognitionSection() {
     </div>
   )
 }
+
 
 function AwardsCarousel() {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
@@ -233,6 +237,7 @@ function AwardsCarousel() {
     const container = scrollContainerRef.current
     if (!container) return
 
+
     let animationFrame: number
     let scrollPos = 0
     const scrollSpeed = 0.45
@@ -240,10 +245,12 @@ function AwardsCarousel() {
     const animate = () => {
       scrollPos += scrollSpeed
 
+
       // Reset to beginning when reaching end for seamless loop
       if (scrollPos >= container.scrollWidth - container.clientWidth) {
         scrollPos = 0
       }
+
 
       container.scrollLeft = scrollPos
       animationFrame = requestAnimationFrame(animate)
@@ -261,15 +268,19 @@ function AwardsCarousel() {
       {/* Right Gradient Overlay */}
       <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white via-white/90 to-transparent z-10 pointer-events-none" />
 
+
       {/* Scrolling Container */}
       <div
         ref={scrollContainerRef}
+
         className="flex gap-6 md:gap-7 overflow-x-hidden scrollbar-hide py-1"
+
       >
         {/* Original awards */}
         {awards.map((award, index) => (
           <div
             key={index}
+
             className="group/card flex-shrink-0 w-48 md:w-56 text-left"
           >
             <div className="relative h-56 md:h-64 rounded-2xl overflow-hidden bg-slate-100 shadow-[0_14px_35px_-22px_rgba(2,6,23,0.65)] ring-1 ring-black/5 transition-all duration-500 group-hover/card:-translate-y-1.5 group-hover/card:shadow-[0_24px_45px_-22px_rgba(2,6,23,0.5)]">
@@ -288,6 +299,7 @@ function AwardsCarousel() {
                 </h4>
               </div>
             </div>
+
           </div>
         ))}
 
@@ -295,6 +307,7 @@ function AwardsCarousel() {
         {awards.map((award, index) => (
           <div
             key={`duplicate-${index}`}
+
             className="group/card flex-shrink-0 w-48 md:w-56 text-left"
           >
             <div className="relative h-56 md:h-64 rounded-2xl overflow-hidden bg-slate-100 shadow-[0_14px_35px_-22px_rgba(2,6,23,0.65)] ring-1 ring-black/5 transition-all duration-500 group-hover/card:-translate-y-1.5 group-hover/card:shadow-[0_24px_45px_-22px_rgba(2,6,23,0.5)]">
@@ -313,9 +326,12 @@ function AwardsCarousel() {
                 </h4>
               </div>
             </div>
+
           </div>
         ))}
       </div>
     </div>
   )
+
 }
+
