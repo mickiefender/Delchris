@@ -15,11 +15,13 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative w-full py-32 md:py-48 min-h-screen flex items-center overflow-hidden"
+      className="relative w-full py-20 md:py-48 min-h-[70vh] md:min-h-screen flex items-center overflow-hidden"
       style={{
-        backgroundImage: 'url(/hero/hero.png)',
+        backgroundImage: isDesktop ? 'url(/hero/hero.png)' : 'url(/hero/hero.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: '#000000',
         // Mobile browsers often do not render fixed backgrounds reliably.
         backgroundAttachment: isDesktop ? 'fixed' : 'scroll',
       }}
