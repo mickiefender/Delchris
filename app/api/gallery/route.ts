@@ -1,0 +1,112 @@
+import { createClient } from '@/lib/supabase/server'
+import { NextRequest, NextResponse } from 'next/server'
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json()
+    const { title, description, image_url, category } = body
+
+    if (!title || !image_url) {
+      return NextResponse.json(
+        { error: 'Missing required fields' },
+        { status: 400 }
+      )
+    }
+
+    const supabase = await createClient()
+
+    const { data, error } = await supabase
+      .from('gallery_images')
+      .insert([
+        {
+          title,
+          description: description || null,
+          image_url,
+          category: category || null,
+        },
+      ])
+      .select()
+
+    if (error) {
+      console.error('Supabase error:', error)
+      return NextResponse.json(
+        { error: 'Failed to add image' },
+        { status: 500 }
+      )
+    }
+
+    return NextResponse.json(
+      { success: true, data },
+      { status: 201 }
+    )
+  } catch (error) {
+    console.error('API error:', error)
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    )
+  }
+}
+
+export async function GET() {
+  try {
+    const supabase = await createClient()
+
+    const { data, error } = await supabase
+      .from('gallery_images')
+      .select('*')
+      .order('created_at', { ascending: false })
+
+    if (error) {
+      return NextResponse.json(
+        { error: 'Failed to fetch gallery images' },
+        { status: 500 }
+      )
+    }
+
+    return NextResponse.json({ data })
+  } catch (error) {
+    console.error('API error:', error)
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    )
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url)
+    const id = searchParams.get('id')
+
+    if (!id) {
+      return NextResponse.json(
+        { error: 'Image ID required' },
+        { status: 400 }
+      )
+    }
+
+    const supabase = await createClient()
+
+    const { error } = await supabase
+      .from('gallery_images')
+      .delete()
+      .eq('id', id)
+
+    if (error) {
+      console.error('Supabase error:', error)
+      return NextResponse.json(
+        { error: 'Failed to delete image' },
+        { status: 500 }
+      )
+    }
+
+    return NextResponse.json({ success: true })
+  } catch (error) {
+    console.error('API error:', error)
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    )
+  }
+}
